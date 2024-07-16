@@ -12,6 +12,7 @@ function ChatScreen({chats, chatInfo}) {
     const {currUser} = useCurrUserDtl();
     const [msg, setMsg] = useState('');
     const handleClick = () => {
+        if(!msg) return
         if(chats.length != 0){
             sendMsg(chats[0].chat_box_id,currUser,(chats[0].recever_id === currUser)? chats[0].sender_id : chats[0].recever_id,msg )
         }

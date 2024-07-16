@@ -4,6 +4,8 @@ import { createContext, useContext } from "react";
 const CurrUserContext = createContext({
     currUser: '',
     setUserName: () => {},
+    forceRender: '',
+    setForceRender: () => {},
 })
 
 export const CurrUserDtlProvider = CurrUserContext.Provider;
