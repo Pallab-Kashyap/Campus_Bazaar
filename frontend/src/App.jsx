@@ -18,8 +18,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/login" element={<LogIn />} />
-          <Route path="/" element={<ChatInterface />} />
-          {/* <Route path="/" element={<SignUp />} /> */}
+          {/* <Route path="/" element={<ChatInterface />} /> */}
+          <Route path="/" element={<SignUp />} />
         </Routes>
       </Router>
       
