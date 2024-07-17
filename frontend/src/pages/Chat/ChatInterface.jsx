@@ -3,6 +3,7 @@ import { ChatBox, ChatScreen, Search } from "../../components/ChatComponents";
 import { CurrUserDtlProvider } from "../../context/chatConext";
 import { getChatBoxes, getChat, markAsSeen } from "../../utils/supabase/supaOperations";
 import supabase from "../../utils/supabase/supabase";
+import './ChatInterface.css'
 
 function ChatInterface() {
   supabase
@@ -56,8 +57,8 @@ function ChatInterface() {
     <CurrUserDtlProvider
       value={{ currUser, setUserName, forceRender, setForceRender }}
     >
-      <div className="h-screen w-screen flex">
-        <div className="chats w-1/4 h-full bg-slate-800">
+      <div className="chatInterface h-screen w-screen flex">
+        <div className="chatBoxContainer w-1/4 h-full ">
           <div>
             <input
               type="text"
@@ -77,7 +78,7 @@ function ChatInterface() {
             />
           ))}
         </div>
-        <div className="w-3/4 h- h-full bg-orange-400">
+        <div className="chatContainer w-3/4 h- h-full ">
           <ChatScreen chats={chats}  chatInfo={chatInfo}/>
         </div>
       </div>

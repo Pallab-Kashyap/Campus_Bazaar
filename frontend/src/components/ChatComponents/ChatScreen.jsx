@@ -24,21 +24,21 @@ function ChatScreen({chats, chatInfo}) {
 
     return (
         <div className='chatScreen h-full w-full '>
-            <div className='chatContainer w-full h-[91%] bg-cyan-500 flex flex-col-reverse overflow-y-scroll p-2'>
+            <div className='chatContainer w-full h-[88%]  flex flex-col-reverse overflow-y-scroll p-3 px-6'>
                 {chats.map((chat) => (
                     <ChatBubble msg={chat.content} sender={chat.sender_id} key={chat.message_id}/>
                 ))}
 
             </div>
-            <div className="msgInput">
+            <div className="msgInputContainer w-full h-[12%] flex justify-center items-center">
                 <input 
-                    className='m-3 w-[90%] p-1 rounded-md' 
+                    className='msgInput h-12 m-3 w-[90%] p-4 rounded-3xl text-white outline-none' 
                     type="text"
                     value={msg}
                     onChange={(e) => setMsg(e.target.value)}
                 />
                 <button
-                className='p-1 px-2 bg-green-500 rounded-md'
+                className='msgSendBtn p-1 px-2 rounded-md'
                 onClick={handleClick}>send</button>
             </div>
         </div>

@@ -1,0 +1,44 @@
+.chatInterface{
+    background-color: #0F1727;
+}
+
+.chatBoxContainer{
+    background-color: #0F1727;
+    border-right: 2.5px solid #1B2332;
+}
+
+.chatContainer{
+    background-color: #0E1524;
+}
+
+.searchChatBox{
+    background-color: transparent;
+}
+
+.searchInput{
+    background-color: #1B2332;
+    color: #767B85;
+}
+
+.chatBubble{
+    background-color: #1B2332;
+    color: white;
+    /* border-radius: 24% 11% 9% 25% / 0% 47% 52% 29%; */
+}
+
+.unseenCount, .msgSendBtn{
+    background-color: #8069EF;
+}
+
+.chatBox{
+    background-color: #1B2332;
+}
+
+.chatProfilePicture{
+    border-radius: 50%;
+}
+
+.msgInput{
+    background-color: #1B2332;
+    color: #767B85;
+}
