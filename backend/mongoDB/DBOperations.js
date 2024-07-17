@@ -19,8 +19,6 @@ async function findUser(email, pass) {
   return false;
 }
 
-findUser("arav@g.c", "arav123");
-
 module.exports = {
   createUser,
   findUser,
