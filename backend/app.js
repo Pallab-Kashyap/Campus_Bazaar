@@ -1,23 +1,37 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { loginHandle, signUpHandle } = require("./middleware");
-const userRouter = require("./routes/user.js");
+const checkUserAuth = require('./middleware/authMiddleware.js')
+const authRouter = require("./routes/authRoutes.js");
+const userRouter = require("./routes/authRoutes.js");
 const cookieParser = require('cookie-parser')
+const dotevn = require('dotenv');
+const connectDB = require("./config/db.js");
+dotevn.config()
 
+connectDB()
 
 const app = express();
 app.use(cors());
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
+app.use(express.json());
+
 app.use(cookieParser());
-app.use((req,res,next) => {
-    console.log(req.body);
-    next();
-})
 
-app.post("/", signUpHandle, userRouter);
+app.use("/auth", authRouter);
 
-app.post("/login", loginHandle, userRouter);
+app.use('/profile', userRouter)
 
-app.listen(3000, () => console.log("server started"));
+//imp doc 
+// checkUserAuth from middlewere checks user and returns user 
+//but in order to use that you need to provide token in postman auth section. how to do that ?? - (watch the latest vdo link in whatsapp)
+//to get token use url "http://localhost:3000/auth/signin" and add {name: "", email: "", password: ""} in postman body-raw-json format
+//u will get token in postman response
+//when you want to use that token while sending req u can do that by (watch the latest vdo link in whatsapp)
+//create a users collection in your DB
+//for any query feel free to contect
+
+
+const port = process.env.PORT
+app.listen(port, () => console.log("server started"));
