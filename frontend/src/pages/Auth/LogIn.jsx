@@ -20,6 +20,7 @@ function LogIn() {
     setPass("");
 
     if (status) {
+      console.log(status);
       navigate("/home");
     }
   };

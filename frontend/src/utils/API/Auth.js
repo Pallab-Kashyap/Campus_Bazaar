@@ -24,7 +24,7 @@ async function createUser(body) {
       body: JSON.stringify(body),
     })
       .then((res) => res.json())
-      .then((res) => res.res)
+      .then((res) => res.user)
       .catch((e) => console.log(e));
   
     return res;

@@ -30,6 +30,12 @@ app.use('/profile', userRouter)
 //u will get token in postman response
 //when you want to use that token while sending req u can do that by (watch the latest vdo link in whatsapp)
 //create a users collection in your DB
+
+//how you will use user details??
+//( when u use checkUserAuth )
+//u will get user data from req.user
+//example: {email, userName} = req.user
+
 //for any query feel free to contect
 
 
