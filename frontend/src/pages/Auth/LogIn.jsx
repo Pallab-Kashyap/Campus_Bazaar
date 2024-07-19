@@ -6,22 +6,24 @@ import { useNavigate } from "react-router-dom";
 function LogIn() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleClick = async (e) => {
     e.preventDefault();
 
     const status = await findUser({
       email,
-      pass,
+      password,
     });
 
     setEmail("");
-    setPass("");
+    setPassword("");
+
+    
 
     if (status) {
       console.log(status);
-      navigate("/home");
+      navigate("/");
     }
   };
 
@@ -49,8 +51,8 @@ function LogIn() {
             type="password"
             id="password"
             placeholder="password"
-            value={pass}
-            onChange={(e) => setPass(e.target.value)}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
 

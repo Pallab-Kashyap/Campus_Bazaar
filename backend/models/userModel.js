@@ -1,10 +1,5 @@
 const mongoose = require("mongoose");
 
-mongoose
-  .connect("mongodb://127.0.0.1:27017/userInfo")
-  .then(() => console.log("db connected"))
-  .catch((err) => console.log("db connection err ", err));
-
 const userSchema = mongoose.Schema({
   userName: {
     type: String,
@@ -16,6 +11,18 @@ const userSchema = mongoose.Schema({
     unique: true,
   },
   password: {
+    type: String,
+    required: true,
+  },
+  college: {
+    type: String,
+    required: true,
+  },
+  year: {
+    type: String,
+    required: true,
+  },
+  course: {
     type: String,
     required: true,
   },

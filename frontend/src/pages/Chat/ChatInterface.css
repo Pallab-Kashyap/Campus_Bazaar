@@ -23,7 +23,12 @@
 .chatBubble{
     background-color: #1B2332;
     color: white;
-    /* border-radius: 24% 11% 9% 25% / 0% 47% 52% 29%; */
+    /* border-radius: 26% 14% 13% 15% / 0% 50% 48% 49%; */
+}
+
+.myMsg{
+    background-color: #8069EF;
+    /* border-radius: 12% 14% 13% 11% / 40% 2% 52% 49%; */
 }
 
 .unseenCount, .msgSendBtn{
