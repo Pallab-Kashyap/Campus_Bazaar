@@ -3,7 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const checkUserAuth = require('./middleware/authMiddleware.js')
 const authRouter = require("./routes/authRoutes.js");
-const userRouter = require("./routes/authRoutes.js");
+const userRouter = require("./routes/userRoutes.js");
 const cookieParser = require('cookie-parser')
 const dotevn = require('dotenv');
 const connectDB = require("./config/db.js");
@@ -21,7 +21,8 @@ app.use(cookieParser());
 
 app.use("/auth", authRouter);
 
-app.use('/profile', userRouter)
+app.use('/profile', userRouter);
+
 
 //imp doc 
 // checkUserAuth from middlewere checks user and returns user 
