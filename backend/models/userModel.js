@@ -16,15 +16,15 @@ const userSchema = mongoose.Schema({
   },
   college: {
     type: String,
-    required: true,
+    required: false,
   },
   year: {
     type: String,
-    required: true,
+    required: false,
   },
   course: {
     type: String,
-    required: true,
+    required: false,
   },
 });
 
