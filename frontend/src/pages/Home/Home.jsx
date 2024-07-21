@@ -12,11 +12,13 @@ function Home() {
 
   return (
     <HomeContextProvider value={{sideNavDisplay, setSideNavDisplay}}>
-      <div className="home h-screen w-screen flex flex-col overflow-y-hidden">
+      <div className="home  h-screen w-screen ">
         <TopNav />
-        <div className="heroSection grow flex">
-          <SideNav />
-          <Outlet />
+        <div className="heroSection h-[91%] flex ">
+            <div>
+                <SideNav />
+            </div>
+                <Outlet />
         </div>
       </div>
     </HomeContextProvider>

@@ -15,7 +15,7 @@ function SideNav() {
   const {sideNavDisplay} = useHomeContext();
 
   return (
-    <div className={`bg-black  ${sideNavDisplay} h-3/5 fixed w-screen flex flex-col items-center pl-16 gap-y-4 text-white md:h-screen py-10 md:pl-6 md:relative md:w-auto md:block`}>
+    <div className={`bg-black  ${sideNavDisplay} h-3/5 fixed w-screen flex flex-col items-center pl-16 gap-y-4 text-white md:h-full py-10 md:pl-6 md:relative md:w-auto md:block`}>
 
       <div className="p-1 px-2 w-64 m-1 mb-3 hover:bg-zinc-800 rounded-lg flex">
         <div className=" text-2xl mr-2 mt-1">

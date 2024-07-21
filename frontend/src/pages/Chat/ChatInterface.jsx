@@ -57,7 +57,7 @@ function ChatInterface() {
     <CurrUserDtlProvider
       value={{ currUser, setUserName, forceRender, setForceRender }}
     >
-      <div className="chatInterface h-1/1 w-4/5 flex">
+      <div className="chatInterface h-full w-full flex">
         <div className="chatBoxContainer w-1/4 h-full ">
           <div>
             <input

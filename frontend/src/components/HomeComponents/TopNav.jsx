@@ -11,7 +11,7 @@ function TopNav() {
   }
 
   return (
-    <div className="bg-black flex justify-between py-3 px-12 sticky top-0">
+    <div className="bg-black h-[9%]  flex justify-between py-3 px-12 sticky top-0">
       <button onClick={handleClick} className="text-white text-3xl md:hidden"><IoMenuOutline /></button>
       <div className="websiteLogo text-yellow-300 text-5xl">cB</div>
       <div 
