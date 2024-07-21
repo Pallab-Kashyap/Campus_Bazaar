@@ -6,3 +6,10 @@
   background-color: rgb(30, 29, 29);
 }
 
+*{
+ box-sizing: border-box; 
+}
+
+/* *::-webkit-scrollbar{
+  display: none;
+} */
