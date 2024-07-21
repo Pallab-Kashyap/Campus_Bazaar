@@ -1,0 +1,122 @@
+[
+{
+    "product_name": "Laptop",
+    "product_prize": 59999,
+    "product_desc": "Powerful laptop for students",
+    "seller_id": "user123",
+    "college": "XYZ University"
+},
+{
+    "product_name": "Textbook",
+    "product_prize": 500,
+    "seller_id": "user456",
+    "college": "ABC College"
+},
+{
+    "product_name": "Smartphone",
+    "product_prize": 29999,
+    "product_desc": "Latest smartphone model",
+    "seller_id": "user789",
+    "college": "DEF Institute"
+},
+{
+    "product_name": "Used Textbook",
+    "product_prize": 200,
+    "product_desc": "Good condition, previous owner's name erased",
+    "seller_id": "user987",
+    "college": "PQR Institute"
+},
+{
+    "product_name": "Wireless Headphones",
+    "product_prize": 3999,
+    "seller_id": "user111",
+    "college": "XYZ University"
+},
+{
+    "product_name": "Bicycle",
+    "product_prize": 8000,
+    "product_desc": "Good for commuting, minor scratches",
+    "seller_id": "user222",
+    "college": "ABC College"
+},
+{
+    "product_name": "Concert Tickets",
+    "product_prize": 3500,
+    "seller_id": "user333",
+    "college": "DEF Institute"
+},
+{
+    "product_name": "Laptop Charger",
+    "product_prize": 1500,
+    "seller_id": "user444",
+    "college": "PQR Institute"
+},
+{
+    "product_name": "Gaming Console",
+    "product_prize": 39999,
+    "product_desc": "Latest gaming console with high-end graphics",
+    "seller_id": "user555",
+    "college": "XYZ University"
+},
+{
+    "product_name": "Digital Camera",
+    "product_prize": 25000,
+    "product_desc": "High-resolution camera with excellent zoom",
+    "seller_id": "user666",
+    "college": "ABC College"
+},
+{
+    "product_name": "Smartwatch",
+    "product_prize": 15000,
+    "product_desc": "Fitness tracker with various features",
+    "seller_id": "user777",
+    "college": "DEF Institute"
+},
+{
+    "product_name": "Textbooks Bundle",
+    "product_prize": 3000,
+    "seller_id": "user888",
+    "college": "PQR Institute"
+},
+{
+    "product_name": "Guitar",
+    "product_prize": 12000,
+    "product_desc": "Acoustic guitar for beginners",
+    "seller_id": "user999",
+    "college": "XYZ University"
+},
+{
+    "product_name": "Cookware Set",
+    "product_prize": 5000,
+    "seller_id": "user100",
+    "college": "ABC College"
+},
+{
+    "product_name": "Sneakers",
+    "product_prize": 5000,
+    "product_desc": "Comfortable and stylish sneakers",
+    "seller_id": "user111",
+    "college": "DEF Institute"
+},
+{
+    "product_name": "Winter Jacket",
+    "product_prize": 3000,
+    "product_desc": "Warm and waterproof winter jacket",
+    "seller_id": "user122",
+    "college": "PQR Institute"
+},
+{
+    "product_name": "Projector",
+    "product_prize": 35000,
+    "product_desc": "High-definition projector for presentations",
+    "seller_id": "user133",
+    "college": "XYZ University"
+},
+{
+    "product_name": "Fitness Equipment",
+    "product_prize": 15000,
+    "product_desc": "Home gym equipment for workout",
+    "seller_id": "user144",
+    "college": "ABC College"
+    }
+]
