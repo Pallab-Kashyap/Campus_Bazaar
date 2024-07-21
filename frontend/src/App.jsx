@@ -8,6 +8,8 @@ import {
   Route,
 } from "react-router-dom";
 import ChatInterface from "./pages/Chat/ChatInterface";
+import ProductContainer from "./components/HomeComponents/ProductContainer";
+import Cart from "./pages/Cart/Cart";
 
 function App() {
 
@@ -17,9 +19,14 @@ function App() {
      
       <Router>
         <Routes>
-          <Route path="/login" element={<LogIn />} />
-          {/* <Route path="/" element={<ChatInterface />} /> */}
-          <Route path="/" element={<SignUp />} />
+          <Route path="/" element={<Home />}>
+            <Route path="/" element={<ProductContainer />}/>
+            <Route path="/login" element={<LogIn />} />
+          <Route path="/signin" element={<SignUp />} />
+            <Route path="/chat" element={<ChatInterface />} />
+            <Route path="/cart" element={<Cart />} />
+          </Route>
+
         </Routes>
       </Router>
       

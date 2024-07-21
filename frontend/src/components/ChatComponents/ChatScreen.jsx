@@ -3,6 +3,7 @@ import { useState } from 'react';
 import ChatBubble from './ChatBubble';
 import { sendMsg } from '../../utils/supabase/supaOperations';
 import { useCurrUserDtl } from '../../context/chatConext';
+import { RiSendPlaneFill } from "react-icons/ri";
 import './ChatStyle.css'
 
 
@@ -38,8 +39,10 @@ function ChatScreen({chats, chatInfo}) {
                     onChange={(e) => setMsg(e.target.value)}
                 />
                 <button
-                className='msgSendBtn p-1 px-2 rounded-md'
-                onClick={handleClick}>send</button>
+                className='msgSendBtn p-3 rounded-full'
+                onClick={handleClick}>
+                    <RiSendPlaneFill />
+                </button>
             </div>
         </div>
     )

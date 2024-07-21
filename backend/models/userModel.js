@@ -14,6 +14,18 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  college: {
+    type: String,
+    required: false,
+  },
+  year: {
+    type: String,
+    required: false,
+  },
+  course: {
+    type: String,
+    required: false,
+  },
 });
 
 const UserModel = mongoose.model("users", userSchema);
