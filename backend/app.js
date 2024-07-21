@@ -7,6 +7,7 @@ const userRouter = require("./routes/userRoutes.js");
 const cookieParser = require('cookie-parser')
 const dotevn = require('dotenv');
 const connectDB = require("./config/db.js");
+const product = require('./routes/product')
 dotevn.config()
 
 connectDB()
@@ -18,6 +19,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use(cookieParser());
+
+app.use('/api/products' , product)
 
 app.use("/auth", authRouter);
 
@@ -37,7 +40,7 @@ app.use('/profile', userRouter);
 //u will get user data from req.user
 //example: {email, userName} = req.user
 
-//for any query feel free to contect
+//for any query feel free to contact
 
 
 const port = process.env.PORT
