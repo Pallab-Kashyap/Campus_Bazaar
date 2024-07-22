@@ -30,7 +30,7 @@ function ChatInterface() {
     })
     .subscribe();
 
-  const [forceRender, setForceRender] = useState(0);
+  const [chatDisplay, setChatDisplay] = useState(0);
   const [chats, setChats] = useState([]);
   const [chatInfo, setChatInfo] = useState([]);
   const [chatBoxes, setChatBoxes] = useState([]);
@@ -50,15 +50,16 @@ function ChatInterface() {
     let res = await getChat(chatBoxDtl.chatBoxId);
     setChatInfo(chatBoxDtl);
     setChats(res);
-    markAsSeen(chatBoxDtl, setForceRender);
+    markAsSeen(chatBoxDtl);
+    setChatDisplay((prev) => (prev) ? 0 : 1)
   };
 
   return (
     <CurrUserDtlProvider
-      value={{ currUser, setUserName, forceRender, setForceRender }}
+      value={{ currUser, setUserName, chatDisplay, setChatDisplay }}
     >
       <div className="chatInterface h-full w-full flex">
-        <div className="chatBoxContainer w-1/4 h-full ">
+        <div className="chatBoxContainer w-full md:w-2/6 h-full overflow-y-scroll">
           <div>
             <input
               type="text"
@@ -78,7 +79,7 @@ function ChatInterface() {
             />
           ))}
         </div>
-        <div className="chatContainer w-3/4 h- h-full ">
+        <div className="chatContainer hidden md:block md:w-3/4  h-full ">
           <ChatScreen chats={chats}  chatInfo={chatInfo}/>
         </div>
       </div>

@@ -39,7 +39,7 @@ function ChatScreen({chats, chatInfo}) {
                     onChange={(e) => setMsg(e.target.value)}
                 />
                 <button
-                className='msgSendBtn p-3 rounded-full'
+                className='msgSendBtn p-3 rounded-full text-white'
                 onClick={handleClick}>
                     <RiSendPlaneFill />
                 </button>

@@ -4,8 +4,8 @@ import { createContext, useContext } from "react";
 const CurrUserContext = createContext({
     currUser: '',
     setUserName: () => {},
-    forceRender: '',
-    setForceRender: () => {},
+    chatDisplay: '',
+    setChatDisplay: () => {},
 })
 
 export const CurrUserDtlProvider = CurrUserContext.Provider;
