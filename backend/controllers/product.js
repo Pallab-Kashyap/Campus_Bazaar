@@ -1,10 +1,25 @@
 const {product_model} = require("../models/product")
+const { UserModel } = require("../models/userModel.js");
 const asyncWrapper = require("../middleware/async")
 
 // ADD filters in it 
 const get_all_products = async(req,res)=>{
-    const products = await product_model.find({})
-    return res.status(200).json(products)
+    const{product_name} = req.query
+    const query_object ={}
+    const userCollege = req.user.college;
+    try{
+    if(college){
+        query_object.college =userCollege ;
+    }
+
+    if(product_name){
+        query_object.product_name = {$regex:product_name , $options: 'i'}
+    }
+    const Product = await product_model.find(query_object)
+    res.status(200).json({ Product });}
+    catch(err){
+        return res.status(500).json({"err":"some error occured"});
+    }
 }
 
 const  add_product=async(req,res)=>{
@@ -51,18 +66,20 @@ const update_product = async(req,res)=>{
     }
 }
 const delete_product = async(req,res)=>{
-    try{
-        const {id:taskID} = req.params;
-        // const Product = await product_model.findByIdAndDelete({_id:taskID})
-        const Product = await product_model.deleteMany({product_name:"door mat"})
-        if(!Product){
-            return res.status(404).json({mes:"product is not avilable"})
+    try {
+        console.log('Received request to delete product with ID:', req.params.id);
+        const { id: taskID } = req.params;
+        const Product = await product_model.findOneAndDelete({ _id: taskID });
+        
+        if (!Product) {
+            console.log('Product not found:', taskID);
+            return res.status(404).json({ mes: "Product is not available" });
         }
-        return res.json(200).json({mes: 'Product deleted successfully' })
-    }catch(err){
-        console.log(err)
-        return res.status(500).json({err});
-
+        console.log('Product deleted successfully:', taskID);
+        return res.status(200).json({ mes: 'Product deleted successfully' });
+    } catch (err) {
+        console.error('Error deleting product:', err);
+        return res.status(500).json({ err });
     }
 }
 
