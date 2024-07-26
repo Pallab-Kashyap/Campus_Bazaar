@@ -1,6 +1,6 @@
 // TODO:
 // CHECK IF COLLEGE IS REQIRED OR NOT 
-// ADD DATE WHEN ADDEDD
+// ADD DATE WHEN ADDEDD 
 // ADD SCHEMA FOR IMAGE 
 
 const mongoose = require("mongoose");

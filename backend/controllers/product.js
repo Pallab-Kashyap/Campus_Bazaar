@@ -8,15 +8,15 @@ const get_all_products = async(req,res)=>{
     const query_object ={}
     const userCollege = req.user.college;
     try{
-    if(college){
-        query_object.college =userCollege ;
+        if(college){
+            query_object.college =userCollege ;
+        }
+        if(product_name){
+            query_object.product_name = {$regex:product_name , $options: 'i'}
+        }
+        const Product = await product_model.find(query_object)
+        res.status(200).json({ Product });
     }
-
-    if(product_name){
-        query_object.product_name = {$regex:product_name , $options: 'i'}
-    }
-    const Product = await product_model.find(query_object)
-    res.status(200).json({ Product });}
     catch(err){
         return res.status(500).json({"err":"some error occured"});
     }
