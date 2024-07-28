@@ -11,6 +11,9 @@ import ChatInterface from "./pages/Chat/ChatInterface";
 import ProductContainer from "./components/HomeComponents/ProductContainer";
 import Cart from "./pages/Cart/Cart";
 import TopNav from "./components/HomeComponents/TopNav";
+import { EmptyChatScreen,ChatScreen } from "./components/ChatComponents";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+import ResetPassword from "./pages/Auth/ResetPassword";
 
 function App() {
 
@@ -25,6 +28,9 @@ function App() {
             <Route path="/login" element={<LogIn />} />
             <Route path="/signin" element={<SignUp />} />
             <Route path="/chat" element={<ChatInterface />} />
+            <Route path="/forgotPassword" element={<ForgotPassword />}/>
+            <Route path="/resetPassword/:userId/:token" element={<ResetPassword />}/>
+            
             <Route path="/cart" element={<Cart />} />
           </Route>
         </Routes>

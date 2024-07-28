@@ -3,24 +3,27 @@ const { UserModel } = require("../models/userModel.js");
 const asyncWrapper = require("../middleware/async")
 
 // ADD filters in it 
-const get_all_products = async(req,res)=>{
-    const{product_name} = req.query
-    const query_object ={}
-    const userCollege = req.user.college;
-    try{
-    if(college){
-        query_object.college =userCollege ;
-    }
+// const get_all_products = async(req,res)=>{
+//     const{product_name} = req.query
+//     const query_object ={}
+//     const userCollege = req.user.college;
+//     try{
+//     if(college){
+//         query_object.college =userCollege ;
+//     }
 
-    if(product_name){
-        query_object.product_name = {$regex:product_name , $options: 'i'}
-    }
-    const Product = await product_model.find(query_object)
-    res.status(200).json({ Product });}
-    catch(err){
-        return res.status(500).json({"err":"some error occured"});
-    }
-}
+//     if(product_name){
+//         query_object.product_name = {$regex:product_name , $options: 'i'}
+//     }
+//     const Product = await product_model.find(query_object)
+//     res.status(200).json({ Product });}
+//     catch(err){
+//         return res.status(500).json({"err":"some error occured"});
+//     }
+// }
+
+
+
 
 const  add_product=async(req,res)=>{
     try{
@@ -83,6 +86,18 @@ const delete_product = async(req,res)=>{
     }
 }
 
+const get_all_products = async(req,res)=>{
+
+    try{
+     const Product = await product_model.find({})
+     console.log(Product);
+    res.status(200).json( Product );
+}
+    catch(err){
+        console.log(err);
+        return res.status(500).json({"err":"some error occured"});
+    }
+}
 
 
 module.exports ={

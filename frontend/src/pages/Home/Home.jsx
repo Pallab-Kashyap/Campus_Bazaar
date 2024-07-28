@@ -1,27 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TopNav from "../../components/HomeComponents/TopNav";
 import SideNav from "../../components/HomeComponents/SideNav";
-import ProductContainer from "../../components/HomeComponents/ProductContainer";
-import {HomeContextProvider} from '../../context/homeConext'
+import { HomeContextProvider } from "../../context/homeConext";
+import { UserContextProvider } from "../../context/userContext";
 import { Outlet } from "react-router-dom";
 import "./Home.css";
+import { getUserDetails } from "../../utils/API/user";
 
 function Home() {
+  const [sideNavDisplay, setSideNavDisplay] = useState("hidden");
+  const [user, setUser] = useState(null);
 
-    const [sideNavDisplay, setSideNavDisplay] = useState('hidden')
+  useEffect(()=>{
+    
+  }, [])
 
   return (
-    <HomeContextProvider value={{sideNavDisplay, setSideNavDisplay}}>
-      <div className="home  h-screen w-screen ">
-        <TopNav />
-        <div className="heroSection h-[91%] flex ">
+    <UserContextProvider value={{user, setUser}}>
+      <HomeContextProvider value={{ sideNavDisplay, setSideNavDisplay }}>
+        <div className="home p-2 bg-zinc-800  h-screen w-screen ">
+          <TopNav />
+          <div className="heroSection h-[91%] flex ">
             <div>
-                <SideNav />
+              <SideNav />
             </div>
-                <Outlet />
+            <Outlet />
+          </div>
         </div>
-      </div>
-    </HomeContextProvider>
+      </HomeContextProvider>
+    </UserContextProvider>
   );
 }
 

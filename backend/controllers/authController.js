@@ -1,6 +1,8 @@
 const { UserModel } = require("../models/userModel.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const  transporter  = require("../config/emailConfig.js");
+const nodemailer = require('nodemailer')
 
 async function createUser(req, res) {
   const { name, email, password, college, year, course } = req.body;
@@ -47,6 +49,7 @@ async function createUser(req, res) {
   }
 }
 
+
 async function loginUser(req, res) {
   const { email, password } = req.body;
   console.log(email, password);
@@ -64,7 +67,7 @@ async function loginUser(req, res) {
             { expiresIn: "7d" }
           );
           user.password = undefined;
-          console.log(token);
+          
           res.send({
             status: "success",
             message: "User LogedIn",
@@ -86,6 +89,7 @@ async function loginUser(req, res) {
     res.send({ status: "failed", message: "All fields required" });
   }
 }
+
 
 const updateUserPassword = async (req, res) => {
   const { password } = req.body;
@@ -116,8 +120,89 @@ const updateUserPassword = async (req, res) => {
   }
 };
 
+
+const forgotPassword = async (req, res) => {
+  const { email } = req.body
+  console.log('got req1');
+  if(email){
+  try{
+    const user = await UserModel.findOne({email})
+    if(user){
+      const secret = user._id + process.env.JWT_SECRET_KEY
+      const token = jwt.sign({ userId: user._id }, secret, { expiresIn: "15m"})
+      const link = `http://localhost:5173/resetPassword/${user._id}/${token}` 
+
+      
+       const info = await transporter.sendMail({
+        from: {
+          name: 'campus bazaar',
+          address: process.env.EMAIL_USER
+        },
+        to: 'pallabkshyp@gmail.com',
+        subject: 'reset password',
+        text: 'link to reset your password',
+        html: `<a href=${link}>click here</a> to reset password`
+      })
+      res.send({status: 'succes', message: 'email is send to reset password', info: info})
+      console.log('sent res');
+    }
+    else{
+      res.send({status: "failed", message: "incorrect email"})
+    }
+
+  }catch(error){
+    console.log(error);
+  }
+}else{
+  res.send({status: "failed", message: "email is required"})
+}
+}
+
+
+const resetPassword = async (req, res) => {
+  const {userId, token} = req.params
+  const {password} = req.body
+  console.log(userId, token);
+  try{
+    const user = await UserModel.findById(userId);
+    if(user){
+    const secret = user._id + process.env.JWT_SECRET_KEY
+    jwt.verify(token, secret)
+    if(password){
+      const salt = await bcrypt.genSalt(10);
+
+      const hashPassword = await bcrypt.hash(password, salt);
+
+      const newData = await UserModel.findByIdAndUpdate(user._id, {
+        $set: {
+          password: hashPassword,
+        },
+      }).select("-password");
+
+      res.send({
+        status: "success",
+        message: "password changed",
+        user: newData,
+      });
+    }
+    else{
+      res.send({status: "failed", message: "password is required"})
+    }
+  }
+  else{
+    res.send({status: "failed", message: "email doesn't exist"})
+  }
+
+  }catch(error){
+    console.log(error);
+    res.send({status: "failed", message: "failed to update password"})
+  }
+}
+
 module.exports = {
   createUser,
   loginUser,
   updateUserPassword,
+  forgotPassword,
+  resetPassword
 };
