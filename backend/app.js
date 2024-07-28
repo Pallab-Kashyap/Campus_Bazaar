@@ -22,6 +22,8 @@ app.use(cookieParser());
 
 app.use('/api/products' , product)
 
+app.use('/api/wishlist', require('./routes/wishlistRoutes'));
+
 app.use("/auth", authRouter);
 
 app.use('/profile', userRouter);
