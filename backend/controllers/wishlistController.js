@@ -3,17 +3,17 @@ const Wishlist = require('../models/wishlistModel');
 
 exports.addToWishlist = async (req, res) => {
     const { productId } = req.body;
-    const userId = req.user._id;
+    const email = req.user.email;
 
     try {
-        const existingWishlistItem = await Wishlist.findOne({ userId, productId });
+        const existingWishlistItem = await Wishlist.findOne({ email, productId });
 
         if (existingWishlistItem) {
             return res.status(400).json({ message: 'Product is already in the wishlist' });
         }
 
         const wishlistItem = new Wishlist({
-            userId,
+            email,
             productId
         });
 
@@ -27,7 +27,7 @@ exports.addToWishlist = async (req, res) => {
 exports.removeFromWishlist =async (req,res)=>{
     try {
         const {productId}= req.body;
-        const userId= req.user._Id;
+        const email= req.user.email;
         const wishlistItem = await Wishlist.findOneAndDelete({ productId }); //findOne
         
             return res.status(400).json({ message: 'Product is removed', deletedProduct: wishlistItem });
@@ -40,8 +40,8 @@ exports.removeFromWishlist =async (req,res)=>{
     };
     exports.getWishlist = async (req, res) => {
         try {
-            const userId = req.user._id;
-            const wishlist = await Wishlist.find({ "userId": userId });
+            const email = req.user.email;
+            const wishlist = await Wishlist.find({ "email": email });
             if (!wishlist) {
                 return res.status(404).json({ message: 'Wishlist not found' });
             }
