@@ -9,54 +9,52 @@ import { FaUniversity } from "react-icons/fa";
 import { FcDepartment } from "react-icons/fc";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
+import { useUserContext } from '../../context/userContext.js'
 
 function SignUp() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
+  const [password, setPassword] = useState("");
   const [college, setCollege] = useState("");
   const [year, setYear] = useState("");
   const [department, setDepartment] = useState("");
+  const { setUser } = useUserContext()
 
 
 
   const handleClick = async (e) => {
     e.preventDefault();
 
-    const status = await createUser({
+    const res = await createUser({
       name,
       email,
-      pass,
-      college,
-      year,
-      department
+      password,
     });
 
-    setName("");
-    setEmail("");
-    setPass("");
-    setCollege("");
-    setYear("");
-    setDepartment("");
+    // setName("");
+    // setEmail("");
+    // setPass("");
+    // setCollege("");
+    // setYear("");
+    // setDepartment("");
 
-    console.log(status);
-    if (status) {
+    
+    if (res.status === 'success') {
 
+      setUser(res.user)
       navigate("/login");
-      console.log('nev');
     }
   };
 
   return (
-    <div className="h-screen w-screen flex justify-center item-center">
+    <div className="h-screen w-screen flex justify-center items-center">
       <form className="signupForm bg-slate-700 h-fit w-fit p-8">
         <div className="InputBox">
           <label htmlFor="username" className="block mb-1">
             Username
             
           </label>
-          <FaUser className='icon'  />
           <input
             type="text"
             id="username"
@@ -75,7 +73,6 @@ function SignUp() {
             Email
             
           </label>
-          <MdEmail className='icon' />
           <input 
             type="email"
             id="email"
@@ -87,7 +84,7 @@ function SignUp() {
         </div>
 
         
-        <div className="InputBox">
+        {/* <div className="InputBox">
           <label htmlFor="college" className="block mt-4 mb-1">
            college
           </label>
@@ -131,18 +128,17 @@ function SignUp() {
             onChange={(e) => setYear(e.target.value)}
           />
            
-        </div>
+        </div> */}
         <div className="InputBox">
           <label htmlFor="password" className="block mt-2 mb-1">
             password
           </label>
-          <RiLockPasswordFill className='icon'/>
           <input
             type="password"
             id="password"
             placeholder="    password"
-            value={pass}
-            onChange={(e) => setPass(e.target.value)}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           
         </div>

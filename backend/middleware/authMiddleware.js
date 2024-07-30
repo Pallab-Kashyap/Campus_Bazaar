@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 
 const checkUserAuth = async(req, res, next) => {
     const {authorization} = req.headers;
+    // const token = req.cookies.token;
+    // console.log(req.cookies.token);
     if( authorization && authorization.startsWith('Bearer')){
         try{
             let token = authorization.split(' ')[1];
@@ -21,5 +23,6 @@ const checkUserAuth = async(req, res, next) => {
         res.send({status: 'failed', message: 'no token'})
     }
 }
+
 
 module.exports = checkUserAuth;

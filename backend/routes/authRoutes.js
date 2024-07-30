@@ -6,8 +6,8 @@ const router = express.Router();
 // public routes
 router.route("/signin").post(createUser);
 router.route("/login").post(loginUser);
-router.route('/forgotPassword').post(checkUserAuth, forgotPassword)
-router.route('/resetPassword/:userId/:token').put(checkUserAuth, resetPassword)
+router.route('/forgotPassword').post(forgotPassword)
+router.route('/resetPassword/:userId/:token').put(resetPassword)
 
 //protected routes
 router.route('/changePassword').put(checkUserAuth, updateUserPassword)

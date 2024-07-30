@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./HomeComponents.css";
 import { BsFillChatRightTextFill } from "react-icons/bs";
 import { FaRegBookmark } from "react-icons/fa6";
@@ -7,22 +7,67 @@ import { FaBookmark } from "react-icons/fa6";
 import { getUserDetails } from "../../utils/API/user";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../context/userContext";
+import { addCartItem, deleteCartItem } from "../../utils/API/cart";
 
-function ProductCard({ product }) {
+function ProductCard({ product, type, cartItem }) {
   const navigate = useNavigate();
   const { product_name, product_prize, seller_id } = product;
 
   const [bookmark, setBookmark] = useState(false)
+  const { user,setUser } = useUserContext();
+  useEffect(()=> {
+    if(type === 'cart'){ setBookmark(true)}
+    cartItem.forEach(item => {
+      if(item._id === product._id){
+        setBookmark(true);
+      } 
+    });
+  },[cartItem])
 
-  const handleBookmark = () => {
-    setBookmark(prev => (prev) ? false : true)
+  const handleBookmark = async () => {
+    if(!user){
+      return navigate('/login')
+    }
+
+    if(user.email === seller_id) return;
+    const body = {
+      productId: product._id,
+    }
+      if(bookmark){
+        try{
+          const res = await deleteCartItem(body)
+          if(!res) {
+            return navigate('/login')
+          }
+          setBookmark(prev => (prev) ? false : true)
+        }
+        catch(error){
+          console.log(error);
+          return;
+        }
+      }
+      else{
+        try{
+         const res = await addCartItem(body);
+         if(!res){
+          console.log(res);
+          return navigate('/login')
+         }
+         setBookmark(prev => (prev) ? false : true)
+        }
+        catch(error){
+          console.log(error);
+          return;
+        }
+      }
   };
 
-  const { user,setUser } = useUserContext();
+
 
   const handleChatClick = async () => {
     if (user) {
-        if(user.email === seller_id) return;
+      console.log(user);
+      if(user.email === seller_id) return;
       await createNewChatBox(user.email, seller_id);
       navigate("/chat");
     } else {
@@ -32,7 +77,7 @@ function ProductCard({ product }) {
           await createNewChatBox(data.email, seller_id);
           setUser(data) 
         navigate("/chat");
-      } else navigate("/signin");
+      } else navigate("/login");
     }
   };
 
@@ -62,6 +107,9 @@ function ProductCard({ product }) {
             <BsFillChatRightTextFill onClick={handleChatClick} />
           </div>
         </div>
+      <div className="sellerId text-white text-xl hidden ">
+        {seller_id}
+      </div>
       </div>
     </div>
   );

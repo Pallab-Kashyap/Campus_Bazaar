@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { findUser, resetPassword } from "../../utils/API/Auth.js";
+import { resetPassword } from "../../utils/API/Auth.js";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeftLong } from "react-icons/fa6";
 
@@ -14,13 +14,21 @@ function ResetPassword() {
     e.preventDefault();
     if(password != confirmPassword) return
 
-    // setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    
     const body = {
       userId,
       token,
       password
     }
     const status = await resetPassword(body)
+    if(status){
+      navigate('/login')
+    }
+    else{
+      
+    }
   };
 
   return (

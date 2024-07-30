@@ -1,4 +1,3 @@
-import { useCurrUserDtl } from "../../context/chatContext.js";
 import supabase from "./supabase.js";
 
 export async function getChatBoxes(currUser) {
@@ -78,14 +77,18 @@ export async function createChatBox(senderId, receverId) {
 }
 
 export async function createNewChatBox(senderId, receverId) {
+  console.log('user', senderId);
+  console.log('res', receverId);
   try {
-    const orStr = `user_1.eq.${senderId},user_2.eq.${receverId}`;
+    const orStr = `and(user_1.eq.${senderId},user_2.eq.${receverId}),and(user_1.eq.${receverId},user_2.eq.${senderId})`;
+    console.log(orStr);
     const { data, error } = await supabase
       .from("chat_box")
       .select()
       .or(orStr)
       .order("created_at", { ascending: false });
 
+      console.log(data);
     if (data.length != 0) {
       return;
     } else {

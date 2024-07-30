@@ -1,4 +1,5 @@
 // controllers/wishlistController.js
+const { product_model } = require('../models/product');
 const Wishlist = require('../models/wishlistModel');
 
 exports.addToWishlist = async (req, res) => {
@@ -28,9 +29,9 @@ exports.removeFromWishlist =async (req,res)=>{
     try {
         const {productId}= req.body;
         const email= req.user.email;
-        const wishlistItem = await Wishlist.findOneAndDelete({ productId }); //findOne
+        const wishlistItem = await Wishlist.findOneAndDelete({ email, productId }); //findOne
         
-            return res.status(400).json({ message: 'Product is removed', deletedProduct: wishlistItem });
+            return res.status(200).json({status: 'success', message: 'Product is removed', deletedProduct: wishlistItem });
             
         } catch(error){
             console.error(error);
@@ -43,9 +44,12 @@ exports.removeFromWishlist =async (req,res)=>{
             const email = req.user.email;
             const wishlist = await Wishlist.find({ "email": email });
             if (!wishlist) {
-                return res.status(404).json({ message: 'Wishlist not found' });
+                return res.status(404).json({status: 'failed', message: 'Wishlist not found' });
             }
-            res.status(200).json(wishlist);
+
+            const productIds = wishlist.map(item => item.productId)
+            const products = await product_model.find({ _id: { $in: productIds } }).lean();
+            res.status(200).json(products);
         } catch (error) {
             
             res.status(500).json({ message: 'Server error', error });

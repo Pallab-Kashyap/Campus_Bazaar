@@ -5,7 +5,7 @@ const  transporter  = require("../config/emailConfig.js");
 const nodemailer = require('nodemailer')
 
 async function createUser(req, res) {
-  const { name, email, password, college, year, course } = req.body;
+  const { name, email, password} = req.body;
 
   if (name && email && password) {
     const user = await UserModel.find({ email: email });
@@ -19,9 +19,9 @@ async function createUser(req, res) {
           userName: name,
           email: email,
           password: hashPassword,
-          college: college,
-          year: year,
-          course: course,
+          // college: college,
+          // year: year,
+          // course: course,
         });
 
         if (user) {
@@ -33,11 +33,14 @@ async function createUser(req, res) {
 
           user.password = undefined;
 
+          // res.cookie('token', token, {
+          //   httpOnly: true
+          // })
           res.send({
             status: "success",
             message: "User registered",
             user: user,
-            token: token,
+            token: token
           });
         }
       } catch (error) {
@@ -52,14 +55,11 @@ async function createUser(req, res) {
 
 async function loginUser(req, res) {
   const { email, password } = req.body;
-  console.log(email, password);
   if (email && password) {
     try {
       const user = await UserModel.findOne({ email: email });
-      console.log(user);
       if (user) {
-        isMatch = bcrypt.compare(password, user.password);
-        console.log(isMatch);
+        isMatch = await bcrypt.compare(password, user.password);
         if (isMatch) {
           const token = jwt.sign(
             { userId: user._id },
@@ -67,19 +67,21 @@ async function loginUser(req, res) {
             { expiresIn: "7d" }
           );
           user.password = undefined;
-          
+
+          // res.cookie('token', token, {
+          //   httpOnly: true,
+          //   sameSite: 'None',
+          // })
           res.send({
             status: "success",
             message: "User LogedIn",
             user: user,
-            token: token,
+            token: token
           });
         } else {
-          console.log(isMatch);
           res.send({ status: "failed", message: "wrong email or password" });
         }
       } else {
-        console.log("no user");
         res.send({ status: "failed", message: "User not found" });
       }
     } catch (error) {
@@ -112,7 +114,6 @@ const updateUserPassword = async (req, res) => {
         user: user,
       });
     } catch (error) {
-      console.log(error);
       res.send({ status: "failed", message: "Failed to change password" });
     }
   } else {
@@ -123,7 +124,6 @@ const updateUserPassword = async (req, res) => {
 
 const forgotPassword = async (req, res) => {
   const { email } = req.body
-  console.log('got req1');
   if(email){
   try{
     const user = await UserModel.findOne({email})
@@ -143,8 +143,7 @@ const forgotPassword = async (req, res) => {
         text: 'link to reset your password',
         html: `<a href=${link}>click here</a> to reset password`
       })
-      res.send({status: 'succes', message: 'email is send to reset password', info: info})
-      console.log('sent res');
+      res.send({status: 'success', message: 'email is send to reset password', info: info})
     }
     else{
       res.send({status: "failed", message: "incorrect email"})
@@ -152,6 +151,7 @@ const forgotPassword = async (req, res) => {
 
   }catch(error){
     console.log(error);
+    res.send({status: 'failed', message: "something went wrong"})
   }
 }else{
   res.send({status: "failed", message: "email is required"})
@@ -162,7 +162,7 @@ const forgotPassword = async (req, res) => {
 const resetPassword = async (req, res) => {
   const {userId, token} = req.params
   const {password} = req.body
-  console.log(userId, token);
+  console.log(password);
   try{
     const user = await UserModel.findById(userId);
     if(user){
@@ -179,6 +179,7 @@ const resetPassword = async (req, res) => {
         },
       }).select("-password");
 
+      console.log("password updated");
       res.send({
         status: "success",
         message: "password changed",

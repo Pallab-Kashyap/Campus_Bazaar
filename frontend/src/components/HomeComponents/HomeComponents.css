@@ -15,3 +15,6 @@
     top: 10.5%;
 }
 
+.ProductCard:hover .sellerId{
+    display: block;
+}

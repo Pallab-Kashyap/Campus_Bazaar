@@ -2,7 +2,6 @@ import React from 'react'
 import { useState } from 'react';
 import ChatBubble from './ChatBubble';
 import { sendMsg } from '../../utils/supabase/supaOperations';
-import { useCurrUserDtl } from '../../context/chatContext';
 import { RiSendPlaneFill } from "react-icons/ri";
 import './ChatStyle.css'
 import { useUserContext } from '../../context/userContext';
@@ -11,8 +10,12 @@ import { useUserContext } from '../../context/userContext';
 
 function ChatScreen({chats, chatInfo, isChat}) {
     
-    console.log(chats);
-    console.log(chatInfo);
+    // const enter = document.querySelector('.chatScreen')
+    // console.log(enter);
+    // enter.addEventListener('keydown', (e) => {
+    //   console.log(e.target.value);  
+    // })
+
     const { user } = useUserContext()
     const [msg, setMsg] = useState('');
     const handleClick = () => {

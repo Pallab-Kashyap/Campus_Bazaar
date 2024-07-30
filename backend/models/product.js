@@ -26,7 +26,7 @@ const product_schema = mongoose.Schema({
     college:{
         type: String,
         // not sure take a look at it first 
-        reqired:true,
+        reqired:false,
     }
 
 })

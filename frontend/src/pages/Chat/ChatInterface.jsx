@@ -6,7 +6,7 @@ import supabase from "../../utils/supabase/supabase";
 import './ChatInterface.css'
 import { useUserContext } from '../../context/userContext'
 import { getUserDetails } from "../../utils/API/user";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 function ChatInterface() {
   supabase
@@ -42,6 +42,7 @@ function ChatInterface() {
   const [isChat, setIsChat] = useState(false);
 
   const { user, setUser } = useUserContext();
+  const navigate = useNavigate()
 
   useEffect(() => {
     const updateUi = async () => {
@@ -51,6 +52,7 @@ function ChatInterface() {
     }
     else{
       const data = await getUserDetails()
+      if(!data) navigate('/login');
       setUser(data)
       const res = await getChatBoxes(data.email);
       setChatBoxes(res);

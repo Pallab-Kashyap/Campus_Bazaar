@@ -6,13 +6,15 @@ import { UserContextProvider } from "../../context/userContext";
 import { Outlet } from "react-router-dom";
 import "./Home.css";
 import { getUserDetails } from "../../utils/API/user";
+import { useNavigate } from "react-router-dom"
 
 function Home() {
   const [sideNavDisplay, setSideNavDisplay] = useState("hidden");
   const [user, setUser] = useState(null);
+  const type = 'home'
+  
 
   useEffect(()=>{
-    
   }, [])
 
   return (

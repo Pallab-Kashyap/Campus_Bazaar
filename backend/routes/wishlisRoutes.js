@@ -8,5 +8,6 @@ const authMiddleware = require('../middleware/authMiddleware');
 
 router.post('/', authMiddleware, wishlistController.addToWishlist);
 router.delete('/',authMiddleware,removeFromWishlist);
-module.exports = router;
 router.get('/', authMiddleware, getWishlist);
+
+module.exports = router;
