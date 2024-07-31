@@ -64,9 +64,6 @@ function ProductContainer({type}) {
                 <ProductCard key={product._id} product={product} type={type} cartItem={cartItem}/>
             )))}
 
-
- 
-            
         </div>        
     )
 }

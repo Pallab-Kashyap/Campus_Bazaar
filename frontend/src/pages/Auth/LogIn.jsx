@@ -87,11 +87,11 @@ function LogIn() {
         >
           LogIn
         </button>
-        <div className="text-center mb-2">
+        {/* <div className="text-center mb-2">
           <Link to="/forgotPassword" className=" text-orange-600">
             Forgot password
           </Link>
-        </div>
+        </div> */}
         <div className="text-center">
           <Link to="/signin" className=" text-orange-600">
             SignUp
