@@ -27,7 +27,12 @@ const product_schema = mongoose.Schema({
         type: String,
         // not sure take a look at it first 
         reqired:true,
+    },
+    image:{
+        type: String,
+        reqired:true,
     }
+    
 
 })
 

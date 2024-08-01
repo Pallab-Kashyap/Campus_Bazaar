@@ -15,6 +15,10 @@ connectDB()
 const app = express();
 app.use(cors());
 
+app.use(express.json()); // For parsing application/json
+app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
+
+// app.use(express.urlencoded({ extended : false }));
 // app.use(bodyParser.json());
 app.use(express.json());
 
