@@ -2,27 +2,33 @@ import React from 'react'
 import { useState } from 'react';
 import ChatBubble from './ChatBubble';
 import { sendMsg } from '../../utils/supabase/supaOperations';
-import { useCurrUserDtl } from '../../context/chatConext';
 import { RiSendPlaneFill } from "react-icons/ri";
 import './ChatStyle.css'
+import { useUserContext } from '../../context/userContext';
 
 
 
-function ChatScreen({chats, chatInfo}) {
+function ChatScreen({chats, chatInfo, isChat}) {
     
-    const {currUser} = useCurrUserDtl();
+    // const enter = document.querySelector('.chatScreen')
+    // console.log(enter);
+    // enter.addEventListener('keydown', (e) => {
+    //   console.log(e.target.value);  
+    // })
+
+    const { user } = useUserContext()
     const [msg, setMsg] = useState('');
     const handleClick = () => {
         if(!msg) return
         if(chats.length != 0){
-            sendMsg(chats[0].chat_box_id,currUser,(chats[0].recever_id === currUser)? chats[0].sender_id : chats[0].recever_id,msg )
+            sendMsg(chats[0].chat_box_id,user.email,(chats[0].recever_id === user.email)? chats[0].sender_id : chats[0].recever_id,msg )
         }
         else{
             sendMsg(chatInfo.chatBoxId,chatInfo.currUser,chatInfo.receverId,msg)
         }
         setMsg('')
     }
-
+    if(isChat){
     return (
         <div className='chatScreen h-full w-full '>
             <div className='chatContainer w-full h-[88%]  flex flex-col-reverse overflow-y-scroll p-3 px-6'>
@@ -45,7 +51,14 @@ function ChatScreen({chats, chatInfo}) {
                 </button>
             </div>
         </div>
-    )
+    )}
+    else{
+        return(
+            <div className='text-white h-full flex justify-center items-center'>
+                <p>Tap On chat box to chat</p>
+            </div>
+        )
+    }
 }
 
 export default ChatScreen

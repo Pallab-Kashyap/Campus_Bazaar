@@ -1,4 +1,20 @@
-.ProductCard:hover{
+.ProductCard{
     box-shadow: 0px 0px 30px 2px #2b3d59 ;
 }
 
+.ProductCard:hover{
+    transition: 0.2s;
+    scale: 1.2;
+}
+
+.bookmark{
+    color: #2b3d59;
+}
+
+.sideNave{
+    top: 10.5%;
+}
+
+.ProductCard:hover .sellerId{
+    display: block;
+}

@@ -1,17 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { findUser } from "../../utils/API/Auth.js";
 import { useNavigate } from "react-router-dom";
+import { useUserContext } from '../../context/userContext.js'
+import { getUserDetails } from '../../utils/API/user.js'
 
 function LogIn() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { user, setUser } = useUserContext()
+
+  useEffect(() => {
+    const checkUser = async () => {
+      if(user){
+        console.log(user);
+        navigate('/profile')
+      }
+      else{
+        const res = await getUserDetails();
+        console.log('no user', res);
+        if(res){
+
+          setUser(res)
+        }
+        else{
+          return
+        }
+      }
+  }
+  checkUser();
+  }, [])
+
 
   const handleClick = async (e) => {
     e.preventDefault();
 
-    const status = await findUser({
+    const res = await findUser({
       email,
       password,
     });
@@ -19,10 +44,10 @@ function LogIn() {
     setEmail("");
     setPassword("");
 
-    
+    console.log(res);
 
-    if (status) {
-      console.log(status);
+    if (res.status === "success") {
+      setUser(res.user)
       navigate("/");
     }
   };
@@ -62,8 +87,13 @@ function LogIn() {
         >
           LogIn
         </button>
+        {/* <div className="text-center mb-2">
+          <Link to="/forgotPassword" className=" text-orange-600">
+            Forgot password
+          </Link>
+        </div> */}
         <div className="text-center">
-          <Link to="/" className=" text-orange-600">
+          <Link to="/signin" className=" text-orange-600">
             SignUp
           </Link>
         </div>
@@ -73,3 +103,4 @@ function LogIn() {
 }
 
 export default LogIn;
+

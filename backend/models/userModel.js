@@ -26,7 +26,13 @@ const userSchema = mongoose.Schema({
     type: String,
     required: false,
   },
-});
+  updatedAt: {
+    type: String,
+    required: false,
+  }
+},
+{timestamp: true},
+);
 
 const UserModel = mongoose.model("users", userSchema);
 

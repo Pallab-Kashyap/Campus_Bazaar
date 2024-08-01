@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useCurrUserDtl } from "../../context/chatConext";
+import { useUserContext } from "../../context/userContext";
 import '../../pages/Chat/ChatInterface.css'
 
 function ChatBox({ chatBox, handleClick }) {
 
-  const { currUser } = useCurrUserDtl();
+  const { user } = useUserContext();
   const messageTo =
-    chatBox.user_1 === currUser ? chatBox.user_2 : chatBox.user_1;
+    chatBox.user_1 === user.email ? chatBox.user_2 : chatBox.user_1;
   let unseenMsg;
-  if (chatBox.unseen_for === currUser) {
+  if (chatBox.unseen_for === user.email) {
     if (chatBox.unseen_msg_count > 0) unseenMsg = chatBox.unseen_msg_count;
   }
+
   const chatBoxDtl = {
     chatBoxId: chatBox.chat_box_id,
-    currUser: currUser,
+    currUser: user.email,
     receverId: messageTo,
   };
 

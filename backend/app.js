@@ -13,22 +13,28 @@ dotevn.config()
 connectDB()
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173', // Replace with your client's origin
+    credentials: true
+}));
 
 app.use(express.json()); // For parsing application/json
 app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
 
 // app.use(express.urlencoded({ extended : false }));
 // app.use(bodyParser.json());
-app.use(express.json());
-
 app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }))
+
 
 app.use('/api/products' , product)
 
-app.use("/auth", authRouter);
+app.use('/api/wishlist', require('./routes/wishlisRoutes.js'));
 
-app.use('/profile', userRouter);
+app.use("/api/auth", authRouter);
+
+app.use('/api/profile', userRouter);
 
 
 //imp doc 

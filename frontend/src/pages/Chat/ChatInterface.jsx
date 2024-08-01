@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { ChatBox, ChatScreen, Search } from "../../components/ChatComponents";
-import { CurrUserDtlProvider } from "../../context/chatConext";
+import { CurrUserDtlProvider } from "../../context/chatContext";
 import { getChatBoxes, getChat, markAsSeen } from "../../utils/supabase/supaOperations";
 import supabase from "../../utils/supabase/supabase";
 import './ChatInterface.css'
+import { useUserContext } from '../../context/userContext'
+import { getUserDetails } from "../../utils/API/user";
+import { Outlet, useNavigate } from "react-router-dom";
 
 function ChatInterface() {
   supabase
@@ -36,21 +39,34 @@ function ChatInterface() {
   const [chatBoxes, setChatBoxes] = useState([]);
   const [currUser, setUserName] = useState("");
   const [val, setVal] = useState("");
+  const [isChat, setIsChat] = useState(false);
 
-  useEffect(() => {}, [chatBoxes])
+  const { user, setUser } = useUserContext();
+  const navigate = useNavigate()
 
-  const handleLogin = async () => {
-    setUserName(val);
-    const res = await getChatBoxes(val);
+  useEffect(() => {
+    const updateUi = async () => {
+    if(user){
+    const res = await getChatBoxes(user.email);
     setChatBoxes(res);
-    setVal("");
-  };
+    }
+    else{
+      const data = await getUserDetails()
+      if(!data) navigate('/login');
+      setUser(data)
+      const res = await getChatBoxes(data.email);
+      setChatBoxes(res);
+    }
+    }
+    updateUi();
+  }, [])
 
   const handleClickChatBox = async (chatBoxDtl) => {
     let res = await getChat(chatBoxDtl.chatBoxId);
     setChatInfo(chatBoxDtl);
     setChats(res);
     markAsSeen(chatBoxDtl);
+    setIsChat(true);
     setChatDisplay((prev) => (prev) ? 0 : 1)
   };
 
@@ -58,18 +74,8 @@ function ChatInterface() {
     <CurrUserDtlProvider
       value={{ currUser, setUserName, chatDisplay, setChatDisplay }}
     >
-      <div className="chatInterface h-full w-full flex">
+      <div className="chatInterface md:ml-72 h-full w-full flex">
         <div className="chatBoxContainer w-full md:w-2/6 h-full overflow-y-scroll">
-          <div>
-            <input
-              type="text"
-              value={val}
-              onChange={(e) => setVal(e.target.value)}
-            />
-            <button className="px-1 bg-teal-400" onClick={handleLogin}>
-              login
-            </button>
-          </div>
           <Search />
           {chatBoxes.map((chatBox) => (
             <ChatBox
@@ -80,7 +86,7 @@ function ChatInterface() {
           ))}
         </div>
         <div className="chatContainer hidden md:block md:w-3/4  h-full ">
-          <ChatScreen chats={chats}  chatInfo={chatInfo}/>
+          <ChatScreen chats={chats}  chatInfo={chatInfo} isChat={isChat}/>
         </div>
       </div>
     </CurrUserDtlProvider>
