@@ -1,6 +1,6 @@
 // TODO:
 // CHECK IF COLLEGE IS REQIRED OR NOT 
-// ADD DATE WHEN ADDEDD
+// ADD DATE WHEN ADDEDD 
 // ADD SCHEMA FOR IMAGE 
 
 const mongoose = require("mongoose");
@@ -26,8 +26,15 @@ const product_schema = mongoose.Schema({
     college:{
         type: String,
         // not sure take a look at it first 
+        reqired:true,
+    },
+    image:{
+        type: String,
+//         reqired:true,
         reqired:false,
+
     }
+    
 
 })
 

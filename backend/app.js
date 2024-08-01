@@ -18,6 +18,10 @@ app.use(cors({
     credentials: true
 }));
 
+app.use(express.json()); // For parsing application/json
+app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
+
+// app.use(express.urlencoded({ extended : false }));
 // app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.json());
